@@ -1,0 +1,53 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2017.09.01.0",
+  "parameters": {
+    "name": {
+      "type": "string",
+      "metadata": {
+        "description": "Specifies the name of the virtual machine. This name should be unique within the resource group."
+      }
+    },
+    "tags": {
+      "type": "object",
+      "metadata": {
+        "description": "Specifies the tags that are assigned to the virtual machine."
+      }
+    },
+    "plan": {
+      "type": "object",
+      "metadata": {
+        "description": "Specifies information about the marketplace image used to create the virtual machine. This element is only used for marketplace images."
+      }
+    },
+    "properties": {
+      "type": "object",
+      "metadata": {
+        "description": "Specifies the properties of the virtual machine."
+      }
+    }
+  },
+  "variables": {
+    "comment": {
+      "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update"
+    },
+    "virtualMachine": {
+      "apiVersion": "2017-09-01",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[parameters('name')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [ ],
+      "plan": "[parameters('plan')]",
+      "properties": "[parameters('properties')]",
+      "resources": [ ]
+    }
+  },
+  "resources": [
+  ],
+  "outputs": {
+    "virtualMachine": {
+      "type": "object",
+      "value": "[variables('virtualMachine')]"
+    }
+  }
+}
