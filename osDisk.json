@@ -1,0 +1,99 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2017.09.01.0",
+  "parameters": {
+    "name": {
+      "type": "string",
+      "metadata": {
+        "description": "Specifies the disk name. This element can be used to overwrite the name of the disk in a virtual machine image."
+      }
+    },
+    "Uri": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Specifies the vhd uri."
+      }
+    },
+    "caching": {
+      "type": "string",
+      "defaultValue": "",
+      "allowedValues": [
+        "",
+        "None",
+        "ReadOnly",
+        "ReadWrite"
+      ],
+      "defaultValue": "ReadWrite",
+      "metadata": {
+        "description": "Specifies the caching requirements. Note that the OS disk will always use read caching even if the setting is configured to None."
+      }
+    },
+    "createOption": {
+      "type": "string",
+      "defaultValue": "",
+      "allowedValues": [
+        "",
+        "Attach",
+        "FromImage"
+      ],
+      "metadata": {
+        "description": "Specifies how the virtual machine should be created."
+      }
+    },
+    "diskSizeGB": {
+      "type": "int",
+      "defaultValue": 0,
+      "maxValue": 1023,
+      "metadata": {
+        "description": "Specifies the resized size of the OS Disk. Allows you to resize an existing OS disk size. "
+      }
+    },
+    "osType": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "This property allows you to specify the type of the OS that is included in the disk if creating a VM from user-image or a specialized VHD. "
+      }
+    },
+    "encryptionSettings": {
+      "type": "object",
+      "defaultValue": null,
+      "metadata": {
+        "description": "Specifies the encryption settings for the OS Disk."
+      }
+    },
+    "ManagedDiskId": {
+      "type": "string",
+      "defaultValue": ""
+    }
+  },
+  "variables": {
+    "comments": {
+      "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#osdisk"
+    },
+    "osDiskArray": [
+      {
+        "name": "[parameters('name')]",
+        "caching": "[parameters('caching')]",
+        "createOption": "[parameters('createOption')]",
+        "vhd": {
+          "uri": "[parameters('Uri')]"
+        },
+        "diskSizeGB": "[parameters('diskSizeGB')]"
+      },
+      {
+        "managedDisk": "[parameters('ManagedDiskId')]"
+      }
+    ],
+    "osDisk": "[if(empty(parameters('managedDiskId')),variables('osDiskArray')[0],variables('osDiskArray')[1])]"
+  },
+  "resources": [
+  ],
+  "outputs": {
+    "osDisk": {
+      "type": "object",
+      "value": "[variables('osDisk')]"
+    }
+  }
+}
