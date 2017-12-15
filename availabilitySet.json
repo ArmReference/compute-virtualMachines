@@ -1,0 +1,29 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2017.09.01.0",
+  "parameters": {
+    "id": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Specifies the resource Id for the availability set to which the Virtual Machine is added."
+      }
+    }
+  },
+  "variables": {
+    "comments": {
+      "defintition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#avset"
+    },
+    "availabilitySet": {
+      "id": "[parameters('id')]"
+    }
+  },
+  "resources": [
+  ],
+  "outputs": {
+    "availabilitySet": {
+      "type": "object",
+      "value": "[variables('availabilitySet')]"
+    }
+  }
+}
