@@ -1,0 +1,97 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2017.09.01.0",
+  "parameters": {
+    "name": {
+      "type": "string",
+      "metadata": {
+        "description": "Specifies the name of the data disk. This element can be used to overwrite the name of the disk in a virtual machine image."
+      }
+    },
+    "diskSizeGB": {
+      "type": "int",
+      "defaultValue": 0,
+      "maxValue": 1023,
+      "metadata": {
+        "description": "Specifies the size of the data disk in gigabytes. This element can be used to overwrite the name of the disk in a virtual machine image."
+      }
+    },
+    "caching": {
+      "type": "string",
+      "defaultValue": "",
+      "allowedValues": [
+        "",
+        "None",
+        "ReadOnly",
+        "ReadWrite"
+      ],
+      "metadata": {
+        "description": "Specifies the caching requirements."
+      }
+    },
+    "lun": {
+      "type": "int",
+      "defaultValue": 0,
+      "metadata": {
+        "description": "Specifies the logical unit number of the data disk."
+      }
+    },
+    "vhd": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Specifies the uri of the location in storage where the VHD for the virtual machine should be placed."
+      }
+    },
+    "managedDiskId": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Specifies the resource identifier of the managed disk."
+      }
+    },
+    "creationOption": {
+      "type": "string",
+      "defaultValue": "",
+      "allowedValues": [
+        "",
+        "Attach ",
+        "FromImage"
+      ],
+      "metadata": {
+        "description": "Specifies how the data disk should be created."
+      }
+    }
+  },
+  "variables": {
+    "comments": {
+      "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#datadisks"
+    },
+    "dataDisksArray": [
+      {
+        "name": "[parameters('name')]",
+        "diskSizeGB": "[parameters('diskSizeGB')]",
+        "caching": "[parameters('caching')]",
+        "lun": "[parameters('lun')]",
+        "vhd": {
+          "uri": "[parameters('vhd')]"
+        },
+        "creationOption": "[parameters('creationOption')]"
+      },
+      {
+        "managedDisk": {
+          "id": "[parameters('managedDiskId')]"
+        }
+      }
+    ],
+    "dataDisks": "[if(empty(parameters('managedDiskId')),variables('dataDisksArray')[0],variables('dataDisksArray')[1])]"
+  },
+  "resources": [
+  ],
+  "outputs": {
+    "dataDisks": {
+      "type": "object",
+      "value": "[variables('dataDisks')]"
+    }
+  }
+}
