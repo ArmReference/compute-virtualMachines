@@ -1,0 +1,42 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2017.09.01.0",
+  "parameters": {
+    "name": {
+      "type": "string",
+      "metadata": {
+        "description": "Specifies the name of the image from the marketplace. This is the same value that you use for Sku under the imageReference element"
+      }
+    },
+    "publisher": {
+      "type": "string",
+      "metadata": {
+        "description": "Specifies the publisher of the image."
+      }
+    },
+    "product": {
+      "type": "string",
+      "metadata": {
+        "description": "Specifies the product of the image from the marketplace. This is the same value as Offer under the imageReference element."
+      }
+    }
+  },
+  "variables": {
+    "comments": {
+      "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#plan"
+    },
+    "plan": {
+      "name": "[parameters('name')]",
+      "publisher": "[parameters('publisher')]",
+      "product": "[parameters('product')]"
+    }
+  },
+  "resources": [
+  ],
+  "outputs": {
+    "plan": {
+      "type": "object",
+      "value": "[variables('plan')]"
+    }
+  }
+}
