@@ -1,0 +1,42 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2017.09.01.0",
+  "parameters": {
+    "enabled": {
+      "type": "bool",
+      "metadata": {
+        "description": "Specifies if the encryption is enabled"
+      }
+    },
+    "diskEncryptionKey": {
+      "type": "object",
+      "metadata": {
+        "description": "Specifies the location of the disk encryption key."
+      }
+    },
+    "keyEncryptionKey": {
+      "type": "object",
+      "metadata": {
+        "description": "Specifies the location of the key encryption key."
+      }
+    }
+  },
+  "variables": {
+    "comments": {
+      "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#encryptionSettings"
+    },
+    "encryptionSettings": {
+      "enabled": "[parameters('enabled')]",
+      "diskEncryptionKey": "[parameters('diskEncryptionKey')]",
+      "keyEncryptionKey": "[parameters('keyEncryptionKey')]"
+    }
+  },
+  "resources": [
+  ],
+  "outputs": {
+    "encryptionSettings": {
+      "type": "object",
+      "value": "[variables('encryptionSettings')]"
+    }
+  }
+}
