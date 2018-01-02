@@ -1,0 +1,63 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2017.09.01.0",
+  "parameters": {
+    "computerName": {
+      "type": "string",
+      "metadata": {
+        "description": "Specifies the host OS name of the virtual machine."
+      }
+    },
+    "adminUsername": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20,
+      "metadata": {
+        "description": "Specifies the name of the administrator account."
+      }
+    },
+    "adminPassword": {
+      "type": "securestring",
+      "minLength": 6,
+      "maxLength": 123,
+      "metadata": {
+        "description": "Specifies the password of the administrator account."
+      }
+    },
+    "customData": {
+      "type": "string",
+      "maxLength": 65535,
+      "defaultValue": "",
+      "metadata": {
+        "description": "Specifies a base-64 encoded string of custom data."
+      }
+    },
+    "windowsConfiguration": {
+      "type": "object",
+      "metadata": {
+        "description": "Specifies Windows operating system settings on the virtual machine."
+      }
+    },
+    "linuxConfiguration": {
+      "type": "object",
+      "metdata": {
+        "description": "Specifies the Linux operating system settings on the virtual machine."
+      }
+    },
+    "secrets": {
+      "type": "object",
+      "metadata": {
+        "description": "Specifies set of certificates that should be installed onto the virtual machine."
+      }
+    }
+  },
+  "variables": {
+    "comments": {
+      "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#osprofile"
+    }
+  },
+  "resources": [
+  ],
+  "outputs": {
+  }
+}

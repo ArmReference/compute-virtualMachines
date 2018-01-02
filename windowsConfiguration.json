@@ -1,0 +1,76 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2017.09.01.0",
+  "parameters": {
+    "provisionVMAgent": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Indicates whether virtual machine agent should be provisioned on the virtual machine. "
+      }
+    },
+    "winRM": {
+      "type": "object",
+      "defaultValue": { },
+      "metadata": {
+        "description": "Specifies the Windows Remote Management listeners. This enables remote Windows PowerShell."
+      }
+    },
+    "additionalUnattendContent": {
+      "type": "object",
+      "defaultValue": { },
+      "metadata": {
+        "description": "Specifies additional XML formatted information that can be included in the Unattend.xml file, which is used by Windows Setup."
+      }
+    },
+    "enableAutomaticUpdates": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Indicates whether virtual machine is enabled for automatic updates."
+      }
+    },
+    "timeZone": {
+      "type": "string",
+      "metadata": {
+        "description": "Specifies the time zone of the virtual machine."
+      }
+    }
+  },
+  "variables": {
+    "comments": {
+      "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#bk_windowsconfig",
+      "baseConfig": "If both winRM and additionalUnattendedContent are empty, then defaults to the first array item.",
+      "winRMConfig": "If winRM has data and additionalUnattendedContent is empty, then joins the first array item and second array item.",
+      "additionalUnattendedContentConfig": "If additionalUnattendedContent has data and winRM is empty, then joins the first array item and third array item.",
+      "fullConfig": "If both winRM and additionalUnattendedContent have data, then join all array items.",
+      "windowsConfiguration": "The preceding variables will either have data or be null, coalesce returns the data from the only variable that has anything."
+    },
+    "windowsConfigurationArray": [
+      {
+        "provisionVMAgent": "[parameters('provisionVMAgent')]",
+        "enableAutomaticUpdates": "[parameters('enableAutomaticUpdates')]",
+        "timeZone": "[parameters('timeZone')]"
+      },
+      {
+        "winRM": "[parameters('winRM')]"
+      },
+      {
+        "additionalUnattendContent": "[parameters('additionalUnattendContent')]"
+      }
+    ],
+    "baseConfig": "[if(and(empty(parameters('winRM')),empty(parameters('additionalUnattendContent'))),variables('windowsConfigurationArray')[0],json('null'))]",
+    "winRMConfig": "[if(and(not(empty(parameters('winRM'))),empty(parameters('additionalUnattendContent'))),union(variables('windowsConfigurationArray')[0],variables('windowsConfigurationArray')[1]),json('null'))]",
+    "additionalUnattendContentConfig": "[if(and(not(empty(parameters('additionalUnattendContent'))),empty(parameters('winRM'))),union(variables('windowsConfigurationArray')[0],variables('windowsConfigurationArray')[2]),json('null'))]",
+    "fullConfig": "[if(and(not(empty(parameters('winRM'))),not(empty(parameters('additionalUnattendContent')))),union(variables('windowsConfigurationArray')[0],variables('windowsConfigurationArray')[1],variables('windowsConfigurationArray')[2]),json('null'))]",
+    "windowsConfiguration": "[coalesce(variables('baseConfig'),variables('winRMConfig'),variables('additionalUnattendContentConfig'),variables('fullConfig'))]"
+  },
+  "resources": [
+  ],
+  "outputs": {
+    "windowsConfiguration": {
+      "type": "object",
+      "value": "[variables('windowsConfiguration')]"
+    }
+  }
+}

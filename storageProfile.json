@@ -1,0 +1,42 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2017.09.01.0",
+  "parameters": {
+    "imageReference": {
+      "type": "object",
+      "metadata": {
+        "description": "Specifies information about the image to use. You can specify information about platform images, marketplace images, or virtual machine images."
+      }
+    },
+    "osDisk": {
+      "type": "object",
+      "metadata": {
+        "description": "Specifies information about the operating system disk used by the virtual machine."
+      }
+    },
+    "dataDisks": {
+      "type": "object",
+      "metadata": {
+        "description": "Specifies the parameters that are used to add a data disk to a virtual machine."
+      }
+    }
+  },
+  "variables": {
+    "comments": {
+      "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#storage"
+    },
+    "storageProfile": {
+      "imageReference": "[parameters('imageReference')]",
+      "osDisk": "[parameters('osDisk')]",
+      "dataDisks": "[parameters('dataDisks')]"
+    }
+  },
+  "resources": [
+  ],
+  "outputs": {
+    "storageProfile": {
+      "type": "object",
+      "value": "[variables('storageProfile')]"
+    }
+  }
+}

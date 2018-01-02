@@ -1,0 +1,57 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2017.09.01.0",
+  "parameters": {
+    "pass": {
+      "type": "string",
+      "metadata": {
+        "description": "Specifies the name of the pass that the content applies to. The only allowable value is oobeSystem."
+      }
+    },
+    "component": {
+      "type": "string",
+      "defaultValue": "Microsoft-Windows-Shell-Setup",
+      "allowedValues": [
+        "Microsoft-Windows-Shell-Setup"
+      ],
+      "metadata": {
+        "description": "Specifies the name of the component to configure with the added content. The only allowable value is Microsoft-Windows-Shell-Setup."
+      }
+    },
+    "settingName": {
+      "type": "string",
+      "allowedValues": [
+        "AutoLogon",
+        "FirstLogonCommands"
+      ],
+      "metadata": {
+        "description": "Specifies the name of the setting to which the content applies."
+      }
+    },
+    "content": {
+      "type": "string",
+      "metadata": {
+        "description": "Specifies the XML formatted content that is added to the unattend.xml file for the specified path and component. The XML must be less than 4KB and must include the root element for the setting or feature that is being inserted."
+      }
+    }
+  },
+  "variables": {
+    "comments": {
+      "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#bk_addcontent"
+    },
+    "additionalUnattendContent": {
+      "pass": "[parameters('pass')]",
+      "component": "[parameters('component')]",
+      "settingName": "[parameters('settingName')]",
+      "content": "[parameters('content')]"
+    }
+  },
+  "resources": [
+  ],
+  "outputs": {
+    "additionalUnattendContent": {
+      "type": "object",
+      "value": "[variables('additionalUnattendContent')]"
+    }
+  }
+}

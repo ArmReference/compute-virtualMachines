@@ -1,0 +1,46 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2017.09.01.0",
+  "parameters": {
+    "protocol": {
+      "type": "string",
+      "allowedValues": [
+        "http",
+        "https"
+      ],
+      "metadata": {
+        "description": "Specifies the protocol of listener."
+      }
+    },
+    "certificateUrl": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Specifies URL of the certificate with which new Virtual Machines is provisioned."
+      }
+    }
+  },
+  "variables": {
+    "comments": {
+      "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#bk_winrm"
+    },
+    "winRMArray": [
+      {
+        "protocol": "[parameters('protocol')]",
+        "certificateUrl": "[parameters('certificateUrl')]"
+      },
+      {
+        "protocol": "[parameters('protocol')]"
+      }
+    ],
+    "winRM": "[if(equals(parameters('protocol'),'https'),variables('winRMArray')[0],variables('winRMArray')[1])]"
+  },
+  "resources": [
+  ],
+  "outputs": {
+    "winRM": {
+      "type": "object",
+      "value": "[variables('winRM')]"
+    }
+  }
+}

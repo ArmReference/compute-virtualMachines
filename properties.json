@@ -1,0 +1,52 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2017.09.01.0",
+  "parameters": {
+    "licenseType": {
+      "type": "string",
+      "allowedValues": [
+        "",
+        "Windows_Client",
+        "Windows_Server"
+      ]
+    },
+    "availabilitySet": {
+      "type": "object",
+      "defaultValue": null,
+      "metadata": {
+        "description": "Specifies information about the availability set that the virtual machine should be assigned to. Virtual machines specified in the same availability set are allocated to different nodes to maximize availability."
+      }
+    },
+    "hardwareProfile": {
+      "type": "object",
+      "metadata": {
+        "description": "Specifies the hardware settings for the virtual machine."
+      }
+    },
+    "storageProfile": {
+      "type": "object",
+      "metadata": {
+        "description": "Specifies the storage settings for the virtual machine disks."
+      }
+    }
+  },
+  "variables": {
+    "comments": {
+      "defintition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#props"
+    },
+    "properties": {
+      "licenseType": "[if(empty(parameters('licenseType')),json('null'),parameters('licenseType'))]",
+      "availabilitySet": "[parameters('availabilitySet')]",
+      "hardwareProfile": "[parameters('hardwareProfile')]",
+      "storageProfile": "[parameters('storageProfile')]"
+    }
+  },
+  "resources": [
+  ],
+  "outputs": {
+    "properties": {
+      "type": "object",
+      "value": "[variables('properties')]"
+    }
+  }
+}
