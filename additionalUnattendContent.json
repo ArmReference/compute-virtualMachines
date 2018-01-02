@@ -4,6 +4,10 @@
   "parameters": {
     "pass": {
       "type": "string",
+      "defaultValue": "oobeSystem",
+      "allowedValues": [
+        "oobeSystem"
+      ],
       "metadata": {
         "description": "Specifies the name of the pass that the content applies to. The only allowable value is oobeSystem."
       }
