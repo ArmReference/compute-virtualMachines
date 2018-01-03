@@ -4,6 +4,7 @@
   "parameters": {
     "licenseType": {
       "type": "string",
+      "defaultValue": "",
       "allowedValues": [
         "",
         "Windows_Client",
@@ -12,7 +13,7 @@
     },
     "availabilitySet": {
       "type": "object",
-      "defaultValue": null,
+      "defaultValue": { },
       "metadata": {
         "description": "Specifies information about the availability set that the virtual machine should be assigned to. Virtual machines specified in the same availability set are allocated to different nodes to maximize availability."
       }
@@ -28,6 +29,25 @@
       "metadata": {
         "description": "Specifies the storage settings for the virtual machine disks."
       }
+    },
+    "osProfile": {
+      "type": "object",
+      "metadata": {
+        "description": "Specifies the operating system settings for the virtual machine."
+      }
+    },
+    "networkProfile": {
+      "type": "object",
+      "metadata": {
+        "description": "Specifies the network interfaces of the virtual machine."
+      }
+    },
+    "diagnosticsProfile": {
+      "type": "object",
+      "defaultValue": { },
+      "metadata": {
+        "description": "Specifies the boot diagnostic settings state."
+      }
     }
   },
   "variables": {
@@ -38,7 +58,9 @@
       "licenseType": "[if(empty(parameters('licenseType')),json('null'),parameters('licenseType'))]",
       "availabilitySet": "[parameters('availabilitySet')]",
       "hardwareProfile": "[parameters('hardwareProfile')]",
-      "storageProfile": "[parameters('storageProfile')]"
+      "storageProfile": "[parameters('storageProfile')]",
+      "osProfile": "[parameters('osProfile')]",
+      "networkProfile": "[parameters('networkProfile')]"
     }
   },
   "resources": [
