@@ -1,0 +1,44 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2017.09.01.0",
+  "parameters": {
+    "disablePasswordAuthentication": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Specifies whether password authentication should be disabled."
+      }
+    },
+    "ssh": {
+      "type": "array",
+      "metadata": {
+        "description": "Specifies a collection of keys to be placed on the virtual machine."
+      }
+    }
+  },
+  "variables": {
+    "comments": {
+      "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#bk_linuxconfig"
+    },
+    "linuxConfigurationArray": [
+      {
+        "disablePasswordAuthentication": "[parameters('disablePasswordAuthentication')]",
+        "ssh": {
+          "publicKeys": "[parameters('ssh')]"
+        }
+      },
+      {
+        "disablePasswordAuthentication": "[parameters('disablePasswordAuthentication')]"
+      }
+    ],
+    "linuxConfiguration": "[if(parameters('disablePasswordAuthentication'),variables('linuxConfigurationArray')[0],variables('linuxConfigurationArray')[1])]"
+  },
+  "resources": [
+  ],
+  "outputs": {
+    "linuxConfiguration": {
+      "type": "object",
+      "value": "[variables('linuxConfiguration')]"
+    }
+  }
+}

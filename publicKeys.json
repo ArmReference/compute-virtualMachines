@@ -1,0 +1,35 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2017.09.01.0",
+  "parameters": {
+    "path": {
+      "type": "string",
+      "metadata": {
+        "description": "Specifies the full path on the created VM where ssh public key is stored. If the file already exists, the specified key is appended to the file."
+      }
+    },
+    "keyData": {
+      "type": "string",
+      "metadata": {
+        "description": "SSH public key certificate used to authenticate with the VM through ssh. The key needs to be at least 2048-bit and in ssh-rsa format."
+      }
+    }
+  },
+  "variables": {
+    "comments": {
+      "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#bk_publicKeys"
+    },
+    "publicKeys": {
+      "path": "[parameters('path')]",
+      "keyData": "[parameters('keyData')]"
+    }
+  },
+  "resources": [
+  ],
+  "outputs": {
+    "publicKeys": {
+      "type": "object",
+      "value": "[variables('publicKeys')]"
+    }
+  }
+}
