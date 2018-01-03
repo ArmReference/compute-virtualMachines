@@ -34,18 +34,21 @@
     },
     "windowsConfiguration": {
       "type": "object",
+      "defaultValue": { },
       "metadata": {
         "description": "Specifies Windows operating system settings on the virtual machine."
       }
     },
     "linuxConfiguration": {
       "type": "object",
+      "defaultValue": { },
       "metdata": {
         "description": "Specifies the Linux operating system settings on the virtual machine."
       }
     },
     "secrets": {
       "type": "object",
+      "defaultValue": { },
       "metadata": {
         "description": "Specifies set of certificates that should be installed onto the virtual machine."
       }
