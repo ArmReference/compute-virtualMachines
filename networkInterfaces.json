@@ -1,0 +1,36 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2017.09.01.0",
+  "parameters": {
+    "id": {
+      "type": "string",
+      "metadata": {
+        "description": "Specifies the resource Id of the network interface."
+      }
+    },
+    "primary": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Specifies the primary network interface in case the virtual machine has more than 1 network interface."
+      }
+    }
+  },
+  "variables": {
+    "comments": {
+      "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#bk_networkInterfaces"
+    },
+    "networkInterfaces": {
+      "id": "[parameters('id')]",
+      "primary": "[parameters('primary')]"
+    }
+  },
+  "resources": [
+  ],
+  "outputs": {
+    "networkInterfaces": {
+      "type": "object",
+      "value": "[variables('networkInterfaces')]"
+    }
+  }
+}
