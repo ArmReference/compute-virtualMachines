@@ -3,7 +3,7 @@
   "contentVersion": "2017.09.01.0",
   "parameters": {
     "networkInterfaces": {
-      "type": "array",
+      "type": "object",
       "metadata": {
         "description": "Specifies the list of resource Ids for the network interfaces associated with the virtual machine."
       }
@@ -16,7 +16,7 @@
   ],
   "outputs": {
     "networkProfile": {
-      "type": "array",
+      "type": "object",
       "value": "[variables('networkProfile')]"
     }
   }
