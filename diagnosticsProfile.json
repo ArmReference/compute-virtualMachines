@@ -1,0 +1,22 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2017.09.01.0",
+  "parameters": {
+    "bootDiagnostics": {
+      "type": "object"
+    }
+  },
+  "variables": {
+    "diagnosticsProfile": {
+      "bootDiagnostics": "[parameters('bootDiagnostics')]"
+    }
+  },
+  "resources": [
+  ],
+  "outputs": {
+    "diagnosticsProfile": {
+      "type": "object",
+      "value": "[variables('diagnosticsProfile')]"
+    }
+  }
+}
