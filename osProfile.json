@@ -42,7 +42,7 @@
     "linuxConfiguration": {
       "type": "object",
       "defaultValue": { },
-      "metdata": {
+      "metadata": {
         "description": "Specifies the Linux operating system settings on the virtual machine."
       }
     },
@@ -57,10 +57,32 @@
   "variables": {
     "comments": {
       "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#osprofile"
-    }
+    },
+    "osProfileArray": [
+      {
+        "computerName": "[parameters('computerName')]",
+        "adminUsername": "[parameters('adminUsername')]",
+        "adminPassword": "[parameters('adminPassword')]",
+        "customData": "[parameters('customData')]",
+        "windowsConfiguration": "[parameters('windowsConfiguration')]",
+        "secrets": "[parameters('secrets')]"
+      },
+      {
+        "computerName": "[parameters('computerName')]",
+        "adminUsername": "[parameters('adminUsername')]",
+        "customData": "[parameters('customData')]",
+        "linuxConfiguration": "[parameters('linuxConfiguration')]",
+        "secrets": "[parameters('secrets')]"
+      }
+    ],
+    "osProfile": "[if(not(empty(parameters('windowsConfiguration'))),variables('osProfileArray')[0],variables('osProfileArray')[1])]"
   },
   "resources": [
   ],
   "outputs": {
+    "osProfile": {
+      "type": "object",
+      "value": "[variables('osProfile')]"
+    }
   }
 }
