@@ -60,7 +60,8 @@
       "hardwareProfile": "[parameters('hardwareProfile')]",
       "storageProfile": "[parameters('storageProfile')]",
       "osProfile": "[parameters('osProfile')]",
-      "networkProfile": "[parameters('networkProfile')]"
+      "networkProfile": "[parameters('networkProfile')]",
+      "diagnosticsProfile": "[parameters('diagnosticsProfile')]"
     }
   },
   "resources": [
