@@ -14,7 +14,9 @@
       "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#hardware"
     },
     "hardwareProfile": {
-      "vmSize": "[parameters('vmSize')]"
+      "hardwareProfile": {
+        "vmSize": "[parameters('vmSize')]"
+      }
     }
   },
   "resources": [
