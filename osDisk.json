@@ -83,7 +83,12 @@
         "diskSizeGB": "[parameters('diskSizeGB')]"
       },
       {
-        "managedDisk": "[parameters('ManagedDiskId')]"
+        "name": "[parameters('name')]",
+        "caching": "[parameters('caching')]",
+        "createOption": "[parameters('createOption')]",
+        "managedDisk": {
+          "id": "[parameters('ManagedDiskId')]"
+        }
       }
     ],
     "osDisk": "[if(empty(parameters('managedDiskId')),variables('osDiskArray')[0],variables('osDiskArray')[1])]"
