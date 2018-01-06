@@ -58,7 +58,7 @@
     },
     "encryptionSettings": {
       "type": "object",
-      "defaultValue": null,
+      "defaultValue": { },
       "metadata": {
         "description": "Specifies the encryption settings for the OS Disk."
       }
