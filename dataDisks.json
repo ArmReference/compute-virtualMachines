@@ -79,9 +79,14 @@
         "creationOption": "[parameters('creationOption')]"
       },
       {
+        "name": "[parameters('name')]",
+        "diskSizeGB": "[parameters('diskSizeGB')]",
+        "caching": "[parameters('caching')]",
+        "lun": "[parameters('lun')]",
         "managedDisk": {
           "id": "[parameters('managedDiskId')]"
-        }
+        },
+        "creationOption": "[parameters('creationOption')]"
       }
     ],
     "dataDisks": "[if(empty(parameters('managedDiskId')),variables('dataDisksArray')[0],variables('dataDisksArray')[1])]"
