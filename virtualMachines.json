@@ -16,6 +16,7 @@
     },
     "plan": {
       "type": "object",
+      "defaultValue": { },
       "metadata": {
         "description": "Specifies information about the marketplace image used to create the virtual machine. This element is only used for marketplace images."
       }
@@ -43,6 +44,16 @@
     }
   },
   "resources": [
+    {
+      "apiVersion": "2017-09-01",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[parameters('name')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [ ],
+      "plan": "[parameters('plan')]",
+      "properties": "[parameters('properties')]",
+      "resources": [ ]
+    }
   ],
   "outputs": {
     "virtualMachine": {
