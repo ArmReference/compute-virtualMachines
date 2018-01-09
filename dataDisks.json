@@ -50,7 +50,7 @@
         "description": "Specifies the resource identifier of the managed disk."
       }
     },
-    "creationOption": {
+    "createOption": {
       "type": "string",
       "defaultValue": "",
       "allowedValues": [
@@ -76,7 +76,7 @@
         "vhd": {
           "uri": "[parameters('vhd')]"
         },
-        "creationOption": "[parameters('creationOption')]"
+        "creationOption": "[parameters('createOption')]"
       },
       {
         "name": "[parameters('name')]",
@@ -86,7 +86,7 @@
         "managedDisk": {
           "id": "[parameters('managedDiskId')]"
         },
-        "creationOption": "[parameters('creationOption')]"
+        "createOption": "[parameters('createOption')]"
       }
     ],
     "dataDisks": "[if(empty(parameters('managedDiskId')),variables('dataDisksArray')[0],variables('dataDisksArray')[1])]"
