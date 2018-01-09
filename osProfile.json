@@ -63,6 +63,17 @@
         "computerName": "[parameters('computerName')]",
         "adminUsername": "[parameters('adminUsername')]",
         "adminPassword": "[parameters('adminPassword')]",
+        "windowsConfiguration": "[parameters('windowsConfiguration')]",
+      },
+      {
+        "computerName": "[parameters('computerName')]",
+        "adminUsername": "[parameters('adminUsername')]",
+        "linuxConfiguration": "[parameters('linuxConfiguration')]",
+      },
+      {
+        "computerName": "[parameters('computerName')]",
+        "adminUsername": "[parameters('adminUsername')]",
+        "adminPassword": "[parameters('adminPassword')]",
         "customData": "[parameters('customData')]",
         "windowsConfiguration": "[parameters('windowsConfiguration')]",
         "secrets": "[parameters('secrets')]"
