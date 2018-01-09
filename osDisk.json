@@ -85,13 +85,10 @@
       {
         "name": "[parameters('name')]",
         "caching": "[parameters('caching')]",
-        "createOption": "[parameters('createOption')]",
-        "managedDisk": {
-          "id": "[parameters('ManagedDiskId')]"
-        }
+        "createOption": "[parameters('createOption')]"
       }
     ],
-    "osDisk": "[if(empty(parameters('managedDiskId')),variables('osDiskArray')[0],variables('osDiskArray')[1])]"
+    "osDisk": "[if(not(empty(parameters('Uri'))),variables('osDiskArray')[0],variables('osDiskArray')[1])]"
   },
   "resources": [
   ],
