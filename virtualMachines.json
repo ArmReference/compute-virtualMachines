@@ -32,27 +32,43 @@
     "comment": {
       "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update"
     },
-    "virtualMachine": {
-      "apiVersion": "2017-09-01",
-      "type": "Microsoft.Compute/virtualMachines",
-      "name": "[parameters('name')]",
-      "location": "[resourceGroup().location]",
-      "dependsOn": [ ],
-      "plan": "[parameters('plan')]",
-      "properties": "[parameters('properties')]",
-      "resources": [ ]
-    }
+    "virtualMachineArray": [
+      {
+        "apiVersion": "2017-03-30",
+        "type": "Microsoft.Compute/virtualMachines",
+        "name": "[parameters('name')]",
+        "location": "[resourceGroup().location]",
+        "dependsOn": [ ],
+        "properties": "[parameters('properties')]",
+        "resources": [ ]
+      },
+      {
+        "apiVersion": "2017-03-30",
+        "type": "Microsoft.Compute/virtualMachines",
+        "name": "[parameters('name')]",
+        "location": "[resourceGroup().location]",
+        "dependsOn": [ ],
+        "plan": "[parameters('plan')]",
+        "properties": "[parameters('properties')]",
+        "resources": [ ]
+      }
+    ],
+    "virtualMachine": "[if(empty(parameters('plan')),variables('virtualMachineArray')[0],variables('virtualMachineArray')[1])]"
   },
   "resources": [
     {
-      "apiVersion": "2017-09-01",
-      "type": "Microsoft.Compute/virtualMachines",
-      "name": "[parameters('name')]",
-      "location": "[resourceGroup().location]",
+      "name": "CreateVirtualMachine",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
       "dependsOn": [ ],
-      "plan": "[parameters('plan')]",
-      "properties": "[parameters('properties')]",
-      "resources": [ ]
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "resources": "[createarray(variables('virtualMachine'))]"
+        }
+      }
     }
   ],
   "outputs": {
