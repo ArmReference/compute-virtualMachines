@@ -2,13 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "2017.09.01.0",
   "parameters": {
-    "id": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "Specifies the resource identifier of a virtual machine image in your subscription. This element is only used for virtual machine images, not platform images or marketplace images."
-      }
-    },
     "publisher": {
       "type": "string",
       "metadata": {
@@ -39,20 +32,12 @@
     "comments": {
       "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#imageref"
     },
-    "Reference1": {
-      "id": "[parameters('id')]",
-      "publisher": "[parameters('publisher')]",
-      "offer": "[parameters('offer')]",
-      "sku": "[parameters('sku')]",
+    "imageReference": {
+      "imagePublisher": "[parameters('publisher')]",
+      "imageOffer": "[parameters('offer')]",
+      "imageSKU": "[parameters('sku')]",
       "version": "[parameters('version')]"
-    },
-    "Reference2": {
-      "publisher": "[parameters('publisher')]",
-      "offer": "[parameters('offer')]",
-      "sku": "[parameters('sku')]",
-      "version": "[parameters('version')]"
-    },
-    "imageReference": "[if(empty(parameters('id')),variables('Reference2'),variables('Reference1'))]"
+    }
   },
   "resources": [
   ],
