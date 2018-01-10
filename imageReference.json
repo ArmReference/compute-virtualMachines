@@ -1,6 +1,6 @@
 ﻿{
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2017.09.01.0",
+  "contentVersion": "2016.04.30.0",
   "parameters": {
     "publisher": {
       "type": "string",
