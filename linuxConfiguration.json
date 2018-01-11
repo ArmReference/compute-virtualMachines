@@ -11,6 +11,7 @@
     },
     "ssh": {
       "type": "array",
+      "defaultValue": [],
       "metadata": {
         "description": "Specifies a collection of keys to be placed on the virtual machine."
       }
@@ -31,7 +32,7 @@
         "disablePasswordAuthentication": "[parameters('disablePasswordAuthentication')]"
       }
     ],
-    "linuxConfiguration": "[if(parameters('disablePasswordAuthentication'),variables('linuxConfigurationArray')[0],variables('linuxConfigurationArray')[1])]"
+    "linuxConfiguration": "[if(parameters('disablePasswordAuthentication'),variables('linuxConfigurationArray')[1],variables('linuxConfigurationArray')[0])]"
   },
   "resources": [
   ],
