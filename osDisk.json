@@ -17,7 +17,6 @@
     },
     "caching": {
       "type": "string",
-      "defaultValue": "",
       "allowedValues": [
         "",
         "None",
