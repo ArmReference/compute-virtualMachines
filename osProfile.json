@@ -68,7 +68,7 @@
       {
         "computerName": "[parameters('computerName')]",
         "adminUsername": "[parameters('adminUsername')]",
-        "linuxConfiguration": "[parameters('linuxConfiguration')]",
+        "linuxConfiguration": "[parameters('linuxConfiguration')]"
       },
       {
         "computerName": "[parameters('computerName')]",
