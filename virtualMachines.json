@@ -16,7 +16,7 @@
     },
     "plan": {
       "type": "object",
-      "defaultValue": { },
+      "defaultValue": {},
       "metadata": {
         "description": "Specifies information about the marketplace image used to create the virtual machine. This element is only used for marketplace images."
       }
@@ -25,6 +25,13 @@
       "type": "object",
       "metadata": {
         "description": "Specifies the properties of the virtual machine."
+      }
+    },
+    "DependsOn": {
+      "type": "array",
+      "defaultValue": [],
+      "metadata": {
+        "description": "Pass dependencies"
       }
     }
   },
@@ -38,19 +45,19 @@
         "type": "Microsoft.Compute/virtualMachines",
         "name": "[parameters('name')]",
         "location": "[resourceGroup().location]",
-        "dependsOn": [ ],
+        "dependsOn": "[if(empty(parameters('DependsOn')),json('null'),parameters('DependsOn'))]",
         "properties": "[parameters('properties')]",
-        "resources": [ ]
+        "resources": []
       },
       {
         "apiVersion": "2017-03-30",
         "type": "Microsoft.Compute/virtualMachines",
         "name": "[parameters('name')]",
         "location": "[resourceGroup().location]",
-        "dependsOn": [ ],
+        "dependsOn": "[if(empty(parameters('DependsOn')),json('null'),parameters('DependsOn'))]",
         "plan": "[parameters('plan')]",
         "properties": "[parameters('properties')]",
-        "resources": [ ]
+        "resources": []
       }
     ],
     "virtualMachine": "[if(empty(parameters('plan')),variables('virtualMachineArray')[0],variables('virtualMachineArray')[1])]"
