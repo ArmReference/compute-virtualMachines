@@ -63,7 +63,7 @@
         "computerName": "[parameters('computerName')]",
         "adminUsername": "[parameters('adminUsername')]",
         "adminPassword": "[parameters('adminPassword')]",
-        "windowsConfiguration": "[parameters('windowsConfiguration')]",
+        "windowsConfiguration": "[parameters('windowsConfiguration')]"
       },
       {
         "computerName": "[parameters('computerName')]",
