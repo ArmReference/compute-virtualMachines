@@ -27,6 +27,13 @@
         "description": "Specifies the properties of the virtual machine."
       }
     },
+    "resources":{
+      "type": "array",
+      "metadata" :{
+        "description": "A collection of objects deployed with the VM"
+      },
+      "defaultValue": []
+    },
     "DependsOn": {
       "type": "array",
       "defaultValue": [],
@@ -47,7 +54,7 @@
         "location": "[resourceGroup().location]",
         "dependsOn": "[if(empty(parameters('DependsOn')),json('null'),parameters('DependsOn'))]",
         "properties": "[parameters('properties')]",
-        "resources": []
+        "resources": "[if(empty(parameters('resources')),json('null'),parameters('resources'))]"
       },
       {
         "apiVersion": "2017-03-30",
@@ -57,7 +64,7 @@
         "dependsOn": "[if(empty(parameters('DependsOn')),json('null'),parameters('DependsOn'))]",
         "plan": "[parameters('plan')]",
         "properties": "[parameters('properties')]",
-        "resources": []
+        "resources": "[if(empty(parameters('resources')),json('null'),parameters('resources'))]"
       }
     ],
     "virtualMachine": "[if(empty(parameters('plan')),variables('virtualMachineArray')[0],variables('virtualMachineArray')[1])]"
