@@ -26,14 +26,20 @@
     "comments": {
       "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#storage"
     },
-    "storageProfile": {
-      "imageReference": "[parameters('imageReference')]",
-      "osDisk": "[parameters('osDisk')]",
-      "dataDisks": "[if(empty(parameters('dataDisks')),json('null'),parameters('dataDisks'))]"
-    }
+    "storageProfileArray": [
+      {
+        "imageReference": "[parameters('imageReference')]",
+        "osDisk": "[parameters('osDisk')]"
+      },
+      {
+        "imageReference": "[parameters('imageReference')]",
+        "osDisk": "[parameters('osDisk')]",
+        "dataDisks": "[parameters('dataDisks')]"
+      }
+    ],
+    "storageProfile":"[if(empty(parameters('dataDisks')),variables('storageProfileArray')[0],variables('storageProfileArray')[1]]"
   },
-  "resources": [
-  ],
+  "resources": [],
   "outputs": {
     "storageProfile": {
       "type": "object",
