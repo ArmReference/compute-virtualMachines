@@ -29,7 +29,7 @@
     "storageProfile": {
       "imageReference": "[parameters('imageReference')]",
       "osDisk": "[parameters('osDisk')]",
-      "dataDisks": "[parameters('dataDisks')]"
+      "dataDisks": "[if(empty(parameters('dataDisks')),json('null'),parameters('dataDisks'))]"
     }
   },
   "resources": [
