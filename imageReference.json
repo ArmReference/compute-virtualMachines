@@ -40,11 +40,7 @@
       "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#imageref"
     },
     "Reference1": {
-      "id": "[parameters('id')]",
-      "publisher": "[parameters('publisher')]",
-      "offer": "[parameters('offer')]",
-      "sku": "[parameters('sku')]",
-      "version": "[parameters('version')]"
+      "id": "[parameters('id')]"
     },
     "Reference2": {
       "publisher": "[parameters('publisher')]",
