@@ -34,21 +34,21 @@
     },
     "windowsConfiguration": {
       "type": "object",
-      "defaultValue": { },
+      "defaultValue": {},
       "metadata": {
         "description": "Specifies Windows operating system settings on the virtual machine."
       }
     },
     "linuxConfiguration": {
       "type": "object",
-      "defaultValue": { },
+      "defaultValue": {},
       "metadata": {
         "description": "Specifies the Linux operating system settings on the virtual machine."
       }
     },
     "secrets": {
       "type": "object",
-      "defaultValue": { },
+      "defaultValue": {},
       "metadata": {
         "description": "Specifies set of certificates that should be installed onto the virtual machine."
       }
@@ -58,13 +58,7 @@
     "comments": {
       "definition": "https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update#osprofile"
     },
-    "osProfileArray": [
-      {
-        "computerName": "[parameters('computerName')]",
-        "adminUsername": "[parameters('adminUsername')]",
-        "adminPassword": "[parameters('adminPassword')]",
-        "windowsConfiguration": "[parameters('windowsConfiguration')]"
-      },
+    "linux": [
       {
         "computerName": "[parameters('computerName')]",
         "adminUsername": "[parameters('adminUsername')]",
@@ -74,9 +68,7 @@
         "computerName": "[parameters('computerName')]",
         "adminUsername": "[parameters('adminUsername')]",
         "adminPassword": "[parameters('adminPassword')]",
-        "customData": "[parameters('customData')]",
-        "windowsConfiguration": "[parameters('windowsConfiguration')]",
-        "secrets": "[parameters('secrets')]"
+        "linuxConfiguration": "[parameters('linuxConfiguration')]"
       },
       {
         "computerName": "[parameters('computerName')]",
@@ -86,10 +78,31 @@
         "secrets": "[parameters('secrets')]"
       }
     ],
-    "osProfile": "[if(not(empty(parameters('windowsConfiguration'))),variables('osProfileArray')[0],variables('osProfileArray')[1])]"
+    "windows": [
+      {
+        "computerName": "[parameters('computerName')]",
+        "adminUsername": "[parameters('adminUsername')]",
+        "linuxConfiguration": "[parameters('linuxConfiguration')]"
+      },
+      {
+        "computerName": "[parameters('computerName')]",
+        "adminUsername": "[parameters('adminUsername')]",
+        "adminPassword": "[parameters('adminPassword')]",
+        "windowsConfiguration": "[parameters('windowsConfiguration')]"
+      },
+      {
+        "computerName": "[parameters('computerName')]",
+        "adminUsername": "[parameters('adminUsername')]",
+        "adminPassword": "[parameters('adminPassword')]",
+        "customData": "[parameters('customData')]",
+        "windowsConfiguration": "[parameters('windowsConfiguration')]",
+        "secrets": "[parameters('secrets')]"
+      }
+    ],
+    "osProfileArray": "[if(not(empty(parameters('windowsConfiguration'))),variables('windows'),variables('linux')]",
+    "osProfile": "[if(not(empty(parameters('adminPassword'))),variables('osProfileArray')[1],variables('osProfileArray')[0])]"
   },
-  "resources": [
-  ],
+  "resources": [],
   "outputs": {
     "osProfile": {
       "type": "object",
