@@ -18,7 +18,8 @@
       "type": "array",
       "metadata": {
         "description": "Specifies the parameters that are used to add a data disk to a virtual machine."
-      }
+      },
+      "defaultValue": []
     }
   },
   "variables": {
