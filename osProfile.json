@@ -99,7 +99,7 @@
         "secrets": "[parameters('secrets')]"
       }
     ],
-    "osProfileArray": "[if(not(empty(parameters('windowsConfiguration'))),variables('windows'),variables('linux')]",
+    "osProfileArray": "[if(not(empty(parameters('windowsConfiguration'))),variables('windows'),variables('linux'))]",
     "osProfile": "[if(not(empty(parameters('adminPassword'))),variables('osProfileArray')[1],variables('osProfileArray')[0])]"
   },
   "resources": [],
