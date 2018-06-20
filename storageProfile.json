@@ -37,7 +37,7 @@
         "dataDisks": "[parameters('dataDisks')]"
       }
     ],
-    "storageProfile":"[if(empty(parameters('dataDisks')),variables('storageProfileArray')[0],variables('storageProfileArray')[1]]"
+    "storageProfile":"[if(empty(parameters('dataDisks')),variables('storageProfileArray')[0],variables('storageProfileArray')[1])]"
   },
   "resources": [],
   "outputs": {
